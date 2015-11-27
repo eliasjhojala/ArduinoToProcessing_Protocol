@@ -5,7 +5,7 @@ Serial arduino;
 void setup() {
   String port = Serial.list()[1];
   println("Connecting to port " + port);
-  arduino = new Serial(this, port, 115200);
+  arduino = new Serial(this, port, 250000);
   size(300, 200);
 }
 
@@ -53,7 +53,7 @@ void readValuesFromArduino() {
 void drawTestRects() {
   try { 
     background(0);
-    rect(valuesFromArduino[0][0], valuesFromArduino[0][1], valuesFromArduino[1][1], valuesFromArduino[1][1]);  
+    rect(valuesFromArduino[0][0], valuesFromArduino[0][1], 10, 10);  
   }
   catch(Exception e) {}
 }

@@ -1,11 +1,11 @@
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(115200);
+  Serial.begin(250000);
 }
 boolean readyToSend = true;
 int val1, val2;
 
-int valuesToSend[1][2];
+int valuesToSend[1][12];
 
 void loop() {
  
@@ -13,7 +13,6 @@ void loop() {
 
   valuesToSend[0][0] = int(random(100));
   valuesToSend[0][1] = 100-valuesToSend[0][0];
-  valuesToSend[1][1] = int(random(50));
   sendValuesToProcessing();
  
 }
@@ -29,13 +28,14 @@ void sendValuesToProcessing() {
 
 String bufferToSendToProcessing() {
   String toReturn;
-  for(int i = 0; i < sizeof(valuesToSend); i++) {
-    for(int j = 0; j < sizeof(valuesToSend[i]); j++) {
+  for(int i = 0; i < sizeof(valuesToSend)/sizeof(valuesToSend[0]); i++) {
+    for(int j = 0; j < sizeof(valuesToSend[0])/2; j++) {
       toReturn = toReturn + String(valuesToSend[i][j]);
-      if(j < sizeof(valuesToSend[i])-1) toReturn = toReturn+",";
+      if(j < sizeof(valuesToSend[0])/2-1) toReturn = toReturn+",";
     }
     toReturn = toReturn + ";";
   }
   return toReturn;
 }
+
 
