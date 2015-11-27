@@ -5,7 +5,7 @@ void setup() {
 boolean readyToSend = true;
 int val1, val2;
 
-int valuesToSend[1][2];
+int valuesToSend[2][2];
 
 void loop() {
  
@@ -13,6 +13,7 @@ void loop() {
 
   valuesToSend[0][0] = int(random(100));
   valuesToSend[0][1] = 100-valuesToSend[0][0];
+  valuesToSend[1][1] = int(random(50));
   sendValuesToProcessing();
  
 }

@@ -6,12 +6,14 @@ void setup() {
   String port = Serial.list()[1];
   println("Connecting to port " + port);
   arduino = new Serial(this, port, 115200);
-  size(300, 100);
+  size(300, 200);
 }
 
 void draw() {
   updatePotentiometers();
 }
+
+int[][] valuesFromArduino;
 
 void updatePotentiometers() {
   
@@ -22,7 +24,20 @@ void updatePotentiometers() {
       arduino.write(1); // tell arduino we can read the next values
       String numbers = buffer.split(",")[0];
       String booleans = buffer.split(",")[1];
-      try { rect(parseValue(numbers), 10, 10, 10); rect(parseValue(booleans), 20, 10, 10); }
+      String[] input = buffer.split(";");
+      String[][] input2D = new String[input.length][];
+      valuesFromArduino = new int[input.length][];
+      for(int i = 0; i < input.length; i++) {
+        String[] inputSplitted = input[i].split(",");
+        input2D[i] = new String[inputSplitted.length];
+        valuesFromArduino[i] = new int[inputSplitted.length];
+        for(int j = 0; j < inputSplitted.length; j++) {
+          input2D[i][j] = inputSplitted[j];
+          valuesFromArduino[i][j] = int(parseValue(input2D[i][j]));
+        }
+      }
+      try { rect(valuesFromArduino[0][0], valuesFromArduino[0][1], valuesFromArduino[1][1], valuesFromArduino[1][1]); }
+   // rect(parseValue(input2D[1][1]), 40, 10, 10);}
       catch (Exception e) {}
       delay(10);
     }
