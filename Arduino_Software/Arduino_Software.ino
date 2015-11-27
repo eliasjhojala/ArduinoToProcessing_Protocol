@@ -5,37 +5,31 @@ void setup() {
 boolean readyToSend = true;
 int val1, val2;
 
-int valuesToSend[1][12];
+int valuesToSend[10][20];
+int valuesToSendOld[10][20];
 
 void loop() {
- 
-  // put your main code here, to run repeatedly:
 
-  valuesToSend[0][0] = int(random(100));
-  valuesToSend[0][1] = 100-valuesToSend[0][0];
   sendValuesToProcessing();
  
 }
 
+
 void sendValuesToProcessing() {
   if(readyToSend) {
-    String toSend = bufferToSendToProcessing();
-    Serial.println(toSend);
-  }
-  if(Serial.available() > 0) { readyToSend = true; Serial.read(); } else { readyToSend = false; }
-}
-
-
-String bufferToSendToProcessing() {
-  String toReturn;
-  for(int i = 0; i < sizeof(valuesToSend)/sizeof(valuesToSend[0]); i++) {
-    for(int j = 0; j < sizeof(valuesToSend[0])/2; j++) {
-      toReturn = toReturn + String(valuesToSend[i][j]);
-      if(j < sizeof(valuesToSend[0])/2-1) toReturn = toReturn+",";
+    String toReturn;
+    for(int i = 0; i < sizeof(valuesToSend)/sizeof(valuesToSend[0]); i++) {
+      for(int j = 0; j < sizeof(valuesToSend[0])/2; j++) {
+        if(valuesToSend[i][j] != valuesToSendOld[i][j]) {
+          toReturn = String(i) + ";" + String(j) + ";" + String(valuesToSend[i][j]) + ";";
+          Serial.println(toReturn);
+          valuesToSendOld[i][j] = valuesToSend[i][j];
+        }
+      }
     }
-    toReturn = toReturn + ";";
   }
-  return toReturn;
+
+  if(Serial.available() > 0) { readyToSend = true; Serial.read(); } else { readyToSend = false; }
 }
 
 

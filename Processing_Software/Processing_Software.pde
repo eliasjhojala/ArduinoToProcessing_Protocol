@@ -13,10 +13,7 @@ void draw() {
   readValuesFromArduino();
 }
 
-int[][] valuesFromArduino;
-
-int counter = 0;
-
+int[][] valuesFromArduino = new int[2][14];
 void readValuesFromArduino() {
   
   if (arduino.available() > 0) {
@@ -25,25 +22,9 @@ void readValuesFromArduino() {
       println(buffer);
       arduino.write(1); // tell arduino we can read the next values
       String[] input = buffer.split(";");
-      String[][] input2D = new String[input.length][];
-      valuesFromArduino = new int[input.length][];
-      for(int i = 0; i < input.length; i++) {
-        try {
-          String[] inputSplitted = input[i].split(",");
-          input2D[i] = new String[inputSplitted.length];
-          valuesFromArduino[i] = new int[inputSplitted.length];
-          for(int j = 0; j < inputSplitted.length; j++) {
-            try {
-              input2D[i][j] = inputSplitted[j];
-              valuesFromArduino[i][j] = int(parseValue(input2D[i][j]));
-              
-            }
-            catch (Exception e) {}
-          }
-        }
-        catch (Exception e) {}
-      }
-      counter++;
+      
+      valuesFromArduino[parseValue(input[0])][parseValue(input[1])] = parseValue(input[2]);
+   
     }
     catch (Exception e) { /*println("error"); */} //Do nothing if error
   }
@@ -53,13 +34,15 @@ void readValuesFromArduino() {
 void drawTestRects() {
   try { 
     background(0);
-    rect(valuesFromArduino[0][0], valuesFromArduino[0][1], 10, 10);  
+    for(int i = 0; i < 10; i++) {
+      rect(i*10+10, 100-valuesFromArduino[0][i], 9, valuesFromArduino[0][i]);
+    }
   }
   catch(Exception e) {}
 }
 
-float parseValue(String s) {
-  float number = (float) Integer.parseInt(s);
+int parseValue(String s) {
+  int number = int((float) Integer.parseInt(s));
   return number;
 }
 
