@@ -29,7 +29,10 @@ void sendValuesToProcessing() {
 String bufferToSendToProcessing() {
   String toReturn;
   for(int i = 0; i < sizeof(valuesToSend); i++) {
-    toReturn = toReturn + String(valuesToSend[0][i]) + ",";
+    for(int j = 0; j < sizeof(valuesToSend[i]); j++) {
+      toReturn = toReturn + String(valuesToSend[i][j]) + ",";
+    }
+    toReturn = toReturn + ";";
   }
   return toReturn;
 }
