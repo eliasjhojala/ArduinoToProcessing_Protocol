@@ -9,14 +9,12 @@ int valuesToSend[10][20];
 int valuesToSendOld[10][20];
 
 void loop() {
-
+  valuesToSend[0][1] = int(random(100));
   sendValuesToProcessing();
  
 }
 
-
 void sendValuesToProcessing() {
-  if(readyToSend) {
     String toReturn;
     for(int i = 0; i < sizeof(valuesToSend)/sizeof(valuesToSend[0]); i++) {
       for(int j = 0; j < sizeof(valuesToSend[0])/2; j++) {
@@ -27,9 +25,7 @@ void sendValuesToProcessing() {
         }
       }
     }
-  }
-
-  if(Serial.available() > 0) { readyToSend = true; Serial.read(); } else { readyToSend = false; }
+    delay(5);
 }
 
 

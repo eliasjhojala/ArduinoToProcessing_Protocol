@@ -18,16 +18,15 @@ void readValuesFromArduino() {
   
   if (arduino.available() > 0) {
     try {
+      
       String buffer = readLine(arduino);
       println(buffer);
-      arduino.write(1); // tell arduino we can read the next values
       String[] input = buffer.split(";");
-      
       valuesFromArduino[parseValue(input[0])][parseValue(input[1])] = parseValue(input[2]);
-   
     }
-    catch (Exception e) { /*println("error"); */} //Do nothing if error
+    catch (Exception e) { println("error"); } //Do nothing if error
   }
+
   drawTestRects();
 }
 
