@@ -11,6 +11,7 @@ void setup() {
 
 void draw() {
   readValuesFromArduino();
+  drawTestRects();
 }
 
 int[][] valuesFromArduino = new int[2][14];
@@ -18,7 +19,6 @@ void readValuesFromArduino() {
   
   if (arduino.available() > 0) {
     try {
-      
       String buffer = readLine(arduino);
       println(buffer);
       String[] input = buffer.split(";");
@@ -26,8 +26,6 @@ void readValuesFromArduino() {
     }
     catch (Exception e) { println("error"); } //Do nothing if error
   }
-
-  drawTestRects();
 }
 
 void drawTestRects() {
