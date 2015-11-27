@@ -5,7 +5,7 @@ void setup() {
 boolean readyToSend = true;
 int val1, val2;
 
-int valuesToSend[2][2];
+int valuesToSend[1][2];
 
 void loop() {
  
@@ -31,7 +31,8 @@ String bufferToSendToProcessing() {
   String toReturn;
   for(int i = 0; i < sizeof(valuesToSend); i++) {
     for(int j = 0; j < sizeof(valuesToSend[i]); j++) {
-      toReturn = toReturn + String(valuesToSend[i][j]) + ",";
+      toReturn = toReturn + String(valuesToSend[i][j]);
+      if(j < sizeof(valuesToSend[i])-1) toReturn = toReturn+",";
     }
     toReturn = toReturn + ";";
   }
