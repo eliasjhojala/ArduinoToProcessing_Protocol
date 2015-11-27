@@ -5,14 +5,14 @@ void setup() {
 boolean readyToSend = true;
 int val1, val2;
 
-int valuesToSend[2];
+int valuesToSend[1][2];
 
 void loop() {
  
   // put your main code here, to run repeatedly:
 
-  valuesToSend[0] = int(random(100));
-  valuesToSend[1] = 100-valuesToSend[0];
+  valuesToSend[0][0] = int(random(100));
+  valuesToSend[0][1] = 100-valuesToSend[0][0];
   sendValuesToProcessing();
  
 }
@@ -29,7 +29,7 @@ void sendValuesToProcessing() {
 String bufferToSendToProcessing() {
   String toReturn;
   for(int i = 0; i < sizeof(valuesToSend); i++) {
-    toReturn = toReturn + String(valuesToSend[i]) + ",";
+    toReturn = toReturn + String(valuesToSend[0][i]) + ",";
   }
   return toReturn;
 }
